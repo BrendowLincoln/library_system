@@ -1,10 +1,12 @@
 package br.edu.femass.daos;
 
-import java.util.*;
+import br.edu.femass.models.Author;
+
+import java.util.List;
 
 public interface Dao<T> {
-    public void save(T object) throws Exception;
-    public List<T> getAll() throws Exception;
-    public void update(T object) throws Exception;
-    public void delete() throws Exception;
+    void save(T t) throws Exception;
+    List<T> getAll() throws Exception;
+    void update(T t) throws Exception;
+    void delete() throws Exception;
 }
