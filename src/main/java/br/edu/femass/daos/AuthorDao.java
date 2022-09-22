@@ -1,6 +1,13 @@
 package br.edu.femass.daos;
 
 import br.edu.femass.models.Author;
+import br.edu.femass.utils.GlobalConstants;
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AuthorDao extends Persistence implements Dao<Author> {

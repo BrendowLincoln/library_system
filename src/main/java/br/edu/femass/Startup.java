@@ -14,6 +14,8 @@ public class Startup {
         final Integer screenWidth = (int) (screenSize.getWidth() * 0.95);
         final Integer screenHeight = (int) (screenSize.getHeight() * 0.8);
 
+        ImageIcon img;
+
         JFrame applicationFrame = new JFrame("Livraría FeMASS");
         applicationFrame.setContentPane(application.getApplicationPanel());
         applicationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
