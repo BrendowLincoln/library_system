@@ -1,7 +1,5 @@
 package br.edu.femass.daos;
 
-import br.edu.femass.models.Author;
-
 import java.util.List;
 
 public interface Dao<T> {
