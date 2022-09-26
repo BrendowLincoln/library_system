@@ -2,6 +2,7 @@ package br.edu.femass;
 
 import br.edu.femass.daos.AuthorDao;
 import br.edu.femass.models.Author;
+import br.edu.femass.views.AuthorView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +12,8 @@ public class Startup {
     public static void main(String[] args) {
         final ApplicationView application = new ApplicationView();
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        final Integer screenWidth = (int) (screenSize.getWidth() * 0.95);
+        final Integer screenWidth = (int) (screenSize.getWidth() * 0.6);
         final Integer screenHeight = (int) (screenSize.getHeight() * 0.8);
-
-        ImageIcon img;
 
         JFrame applicationFrame = new JFrame("Livraría FeMASS");
         applicationFrame.setContentPane(application.getApplicationPanel());
@@ -26,5 +25,6 @@ public class Startup {
             screenSize.width/2- applicationFrame.getSize().width/2,
             screenSize.height/2-applicationFrame.getSize().height/2
         );
+        applicationFrame.setResizable(false);
     }
 }
