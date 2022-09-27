@@ -62,7 +62,7 @@
               <color color="-1381654"/>
             </border>
             <children>
-              <component id="8e423" class="javax.swing.JList" binding="list1" default-binding="true">
+              <component id="8e423" class="javax.swing.JList" binding="authorList">
                 <constraints/>
                 <properties>
                   <model/>

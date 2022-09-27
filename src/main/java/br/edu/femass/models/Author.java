@@ -6,7 +6,7 @@ public class Author {
     private String secondName;
     private String nationality;
 
-    private Integer _initialCode = 1;
+    private static Integer _initialCode = 1;
 
     public Author() { }
 
@@ -20,7 +20,7 @@ public class Author {
         this.secondName = secondName;
         this.nationality = nationality;
 
-        this._initialCode++;
+        _initialCode++;
     }
 
     public Integer getCode() {
