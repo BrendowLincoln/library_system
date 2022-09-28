@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class AuthorDao extends Persistence implements Dao<Author> {
     private final String FILE_NAME = GlobalConstants.PERSISTENCE_DIRECTORY_PATH + "authors.json";
@@ -17,11 +18,7 @@ public class AuthorDao extends Persistence implements Dao<Author> {
     public void save(Author author) throws Exception {
         List<Author> authors = getAll();
         authors.add(author);
-        String json = getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(authors);
-
-        FileOutputStream out = new FileOutputStream(FILE_NAME);
-        out.write(json.getBytes());
-        out.close();
+        writeInFile(authors);
     }
 
     @Override
@@ -38,12 +35,59 @@ public class AuthorDao extends Persistence implements Dao<Author> {
     }
 
     @Override
-    public void update(Author author) throws Exception {
+    public Author getByCode(Integer code) throws Exception {
+        try {
+            List<Author> authors = getAll();
+            if (authors == null || authors.isEmpty()) {
+                return null;
+            }
 
+            return authors.stream().filter((author) -> author.getCode().equals(code)).findFirst().get();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
     @Override
-    public void delete() throws Exception {
+    public Integer getNextCode() throws Exception {
+        try {
+            List<Author> authors = getAll();
+            if (authors == null || authors.isEmpty()) {
+                return 1;
+            }
 
+            Integer biggestCode = authors.stream().map((author) -> author.getCode()).max(Integer::compare).get();
+
+            return biggestCode + 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public void update(Author author) throws Exception {
+        List<Author> authors = getAll();
+        for (int i = 0; i < authors.size(); i++) {
+            if (authors.get(i).getCode() == author.getCode()) {
+                authors.set(i, author);
+            }
+        }
+
+        writeInFile(authors);
+    }
+
+    @Override
+    public void delete(Integer code) throws Exception {
+        List<Author> authors = getAll();
+        authors.removeIf((author) -> author.getCode() == code);
+        writeInFile(authors);
+    }
+
+
+    private void writeInFile(List<Author> authors) throws Exception {
+        String json = getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(authors);
+        FileOutputStream out = new FileOutputStream(FILE_NAME);
+        out.write(json.getBytes());
+        out.close();
     }
 }

@@ -2,6 +2,7 @@ package br.edu.femass;
 
 import br.edu.femass.utils.GlobalConstants;
 import br.edu.femass.views.AuthorView;
+import br.edu.femass.utils.Menus;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,12 +32,15 @@ public class ApplicationView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                menuStateController(Menus.BOOKS);
             }
         });
 
         authorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                menuStateController(Menus.AUTHORS);
+
                 AuthorView authorview = new AuthorView();
                 mainContainer.removeAll();
                 mainContainer.setLayout(new GridBagLayout());
@@ -54,25 +58,35 @@ public class ApplicationView extends JFrame {
         readerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                menuStateController(Menus.READERS);
 
             }
         });
+
         loanButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                menuStateController(Menus.LOANS);
             }
         });
+
         employeeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                menuStateController(Menus.EMPLOYEES);
             }
         });
     }
 
     public JPanel getApplicationPanel() {
         return this.applicationPanel;
+    }
+
+    //Private Methods
+
+    private void initialize() {
+        setLogoImage();
+
     }
 
 
@@ -84,4 +98,91 @@ public class ApplicationView extends JFrame {
             System.out.println("Image not found!");
         }
     }
+
+   private void menuStateController(Menus selectedMenu) {
+        switch (selectedMenu) {
+            case BOOKS:
+                //Selected Button
+                bookButton.setBackground(GlobalConstants.WHITE);
+                bookButton.setForeground(GlobalConstants.GRAY);
+
+                //Others Button
+                authorButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                authorButton.setForeground(GlobalConstants.GRAY);
+                readerButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                readerButton.setForeground(GlobalConstants.GRAY);
+                loanButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                loanButton.setForeground(GlobalConstants.GRAY);
+                employeeButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                employeeButton.setForeground(GlobalConstants.GRAY);
+
+                break;
+
+            case AUTHORS:
+                //Selected Button
+                authorButton.setBackground(GlobalConstants.WHITE);
+                authorButton.setForeground(GlobalConstants.GRAY);
+
+                //Others Button
+                bookButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                bookButton.setForeground(GlobalConstants.GRAY);
+                readerButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                readerButton.setForeground(GlobalConstants.GRAY);
+                loanButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                loanButton.setForeground(GlobalConstants.GRAY);
+                employeeButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                employeeButton.setForeground(GlobalConstants.GRAY);
+
+                break;
+
+            case READERS:
+                //Selected Button
+                readerButton.setBackground(GlobalConstants.WHITE);
+                readerButton.setForeground(GlobalConstants.GRAY);
+
+                //Others Button
+                bookButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                bookButton.setForeground(GlobalConstants.GRAY);
+                authorButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                authorButton.setForeground(GlobalConstants.GRAY);
+                loanButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                loanButton.setForeground(GlobalConstants.GRAY);
+                employeeButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                employeeButton.setForeground(GlobalConstants.GRAY);
+
+                break;
+
+            case LOANS:
+                //Selected Button
+                loanButton.setBackground(GlobalConstants.WHITE);
+                loanButton.setForeground(GlobalConstants.GRAY);
+
+                //Others Button
+                bookButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                bookButton.setForeground(GlobalConstants.GRAY);
+                authorButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                authorButton.setForeground(GlobalConstants.GRAY);
+                readerButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                readerButton.setForeground(GlobalConstants.GRAY);
+                employeeButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                employeeButton.setForeground(GlobalConstants.GRAY);
+                break;
+
+            case EMPLOYEES:
+                //Selected Button
+                employeeButton.setBackground(GlobalConstants.WHITE);
+                employeeButton.setForeground(GlobalConstants.GRAY);
+
+                //Others Button
+                bookButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                bookButton.setForeground(GlobalConstants.GRAY);
+                authorButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                authorButton.setForeground(GlobalConstants.GRAY);
+                readerButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                readerButton.setForeground(GlobalConstants.GRAY);
+                loanButton.setBackground(GlobalConstants.LIGHT_GRAY);
+                loanButton.setForeground(GlobalConstants.GRAY);
+                break;
+        }
+   }
 }

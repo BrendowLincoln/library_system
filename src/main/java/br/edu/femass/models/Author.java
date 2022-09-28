@@ -6,21 +6,18 @@ public class Author {
     private String secondName;
     private String nationality;
 
-    private static Integer _initialCode = 1;
-
     public Author() { }
 
     public Author(
+            Integer code,
         String name,
         String secondName,
         String nationality
     ) {
-        this.code = _initialCode;
+        this.code = code;
         this.name = name;
         this.secondName = secondName;
         this.nationality = nationality;
-
-        _initialCode++;
     }
 
     public Integer getCode() {
