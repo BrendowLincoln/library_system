@@ -1,16 +1,15 @@
 package br.edu.femass.daos;
 
-import br.edu.femass.models.Author;
 import br.edu.femass.utils.GlobalConstants;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,51 +24,60 @@ public class Persistence {
         return mapper;
     }
 
-    protected Integer nextEntityIndex(String entity) {
+    protected Long nextEntityIndex(String entity) throws IOException {
         List<PersistenceIndex> entitiesIndex;
 
         try {
             FileInputStream in = new FileInputStream(FILE_NAME);
             String json = new String(in.readAllBytes());
             in.close();
-            entitiesIndex = getObjectMapper().readValue(json, new TypeReference<List<PersistenceIndex>>() {
-            });
+            entitiesIndex = getObjectMapper().readValue(json, new TypeReference<List<PersistenceIndex>>() {  });
 
         } catch (IOException f) {
-            return null;
+            entitiesIndex = new ArrayList<PersistenceIndex>();
         }
 
-        boolean isEntityExist = entitiesIndex.stream().map(index -> index.entity).collect(Collectors.toList()).contains(entity);
+        boolean isEntityExist = entitiesIndex.stream().map(index -> index.getEntity()).collect(Collectors.toList()).contains(entity);
 
         PersistenceIndex persistenceIndex;
 
         if (!isEntityExist) {
-            persistenceIndex = new PersistenceIndex(entity, 0);
+            persistenceIndex = new PersistenceIndex(entity, 1L);
             entitiesIndex.add(persistenceIndex);
+            String json = getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(entitiesIndex);
+            FileOutputStream out = new FileOutputStream(FILE_NAME);
+            out.write(json.getBytes());
+            out.close();
+            return persistenceIndex.getCurrentIndex();
         } else {
-            persistenceIndex = entitiesIndex.stream().filter(index -> index.entity == entity).findFirst().get();
-            PersistenceIndex updatedPersistenceIndex = new PersistenceIndex(entity, persistenceIndex.currentIndex++);
+            persistenceIndex = entitiesIndex.stream().filter(index -> index.getEntity().equals(entity)).findFirst().get();
 
-            for(int i = 0; i < 0; i++) {
-                if(persistenceIndex.entity == entity) {
+            Long nextIndex = persistenceIndex.getCurrentIndex() + 1L;
+
+            PersistenceIndex updatedPersistenceIndex = new PersistenceIndex(entity, nextIndex);
+
+            for(int i = 0; i < entitiesIndex.size(); i++) {
+                if(entitiesIndex.get(i).getEntity().equals(entity)) {
                     entitiesIndex.set(i, updatedPersistenceIndex);
-
-                    return updatedPersistenceIndex.currentIndex;
+                    String json = getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(entitiesIndex);
+                    FileOutputStream out = new FileOutputStream(FILE_NAME);
+                    out.write(json.getBytes());
+                    out.close();
+                    return nextIndex;
                 }
             }
         }
-
         return null;
     }
 }
 
 class PersistenceIndex {
-    public String entity;
-    public Integer currentIndex;
+    private String entity;
+    private Long currentIndex;
 
     public PersistenceIndex() { }
 
-    public  PersistenceIndex(String entity, Integer currentIndex) {
+    public  PersistenceIndex(String entity, Long currentIndex) {
         this.entity = entity;
         this.currentIndex = currentIndex;
     }
@@ -78,7 +86,7 @@ class PersistenceIndex {
         return this.entity;
     }
 
-    public Integer getCurrentIndex() {
+    public Long getCurrentIndex() {
         return this.currentIndex;
     }
 }

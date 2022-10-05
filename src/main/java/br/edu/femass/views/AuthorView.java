@@ -47,7 +47,7 @@ public class AuthorView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    _authorDao.delete(Integer.parseInt(codeInput.getText()));
+                    _authorDao.delete(Long.parseLong(codeInput.getText()));
                     clearFields();
                     setEditMode(false);
                     updateList();
@@ -138,6 +138,7 @@ public class AuthorView extends JFrame {
         firstNameInput.setText(null);
         secondNameInput.setText(null);
         nationalityInput.setText(null);
+        authorList.clearSelection();
     }
 
     private void updateList() {
@@ -185,7 +186,7 @@ public class AuthorView extends JFrame {
     private void change() {
         try {
             Author updatedAuthor = new Author(
-                    Integer.parseInt(codeInput.getText()),
+                    Long.parseLong(codeInput.getText()),
                     firstNameInput.getText(),
                     secondNameInput.getText(),
                     nationalityInput.getText()

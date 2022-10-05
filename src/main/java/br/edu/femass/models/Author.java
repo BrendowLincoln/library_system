@@ -1,7 +1,7 @@
 package br.edu.femass.models;
 
 public class Author {
-    private Integer code;
+    private Long code;
     private String name;
     private String secondName;
     private String nationality;
@@ -9,7 +9,7 @@ public class Author {
     public Author() { }
 
     public Author(
-            Integer code,
+        Long code,
         String name,
         String secondName,
         String nationality
@@ -20,7 +20,7 @@ public class Author {
         this.nationality = nationality;
     }
 
-    public Integer getCode() {
+    public Long getCode() {
         return this.code;
     }
 

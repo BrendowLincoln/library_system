@@ -49,19 +49,8 @@ public class AuthorDao extends Persistence implements Dao<Author> {
     }
 
     @Override
-    public Integer getNextCode() throws Exception {
-        try {
-            List<Author> authors = getAll();
-            if (authors == null || authors.isEmpty()) {
-                return 1;
-            }
-
-            Integer biggestCode = authors.stream().map((author) -> author.getCode()).max(Integer::compare).get();
-
-            return biggestCode + 1;
-        } catch (Exception e) {
-            return 0;
-        }
+    public Long getNextCode() throws Exception {
+          return nextEntityIndex("author");
     }
 
     @Override
@@ -77,7 +66,7 @@ public class AuthorDao extends Persistence implements Dao<Author> {
     }
 
     @Override
-    public void delete(Integer code) throws Exception {
+    public void delete(Long code) throws Exception {
         List<Author> authors = getAll();
         authors.removeIf((author) -> author.getCode() == code);
         writeInFile(authors);
