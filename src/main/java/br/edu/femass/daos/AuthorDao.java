@@ -3,7 +3,6 @@ package br.edu.femass.daos;
 import br.edu.femass.models.Author;
 import br.edu.femass.utils.GlobalConstants;
 import br.edu.femass.utils.exceptions.AuthorDaoExceptionMessage;
-import br.edu.femass.utils.exceptions.DaoException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.FileInputStream;
@@ -26,18 +25,17 @@ public class AuthorDao extends Persistence implements Dao<Author> {
     }
 
     @Override
-    public void save(Author author) throws DaoException {
+    public void save(Author author) throws Exception {
         try {
-
             if(author.getCode() == null || author.getName().isEmpty() || author.getSecondName().isEmpty() || author.getNationality().isEmpty()) {
-                throw new DaoException(AuthorDaoExceptionMessage.COULD_NOT_SAVE_AUTHOR);
+                throw new IllegalArgumentException(AuthorDaoExceptionMessage.COULD_NOT_SAVE_AUTHOR);
             }
 
             List<Author> authors = getAll();
             authors.add(author);
             writeInFile(authors);
         } catch (Exception de) {
-            throw new DaoException(AuthorDaoExceptionMessage.COULD_NOT_SAVE_AUTHOR);
+            throw new IllegalArgumentException(AuthorDaoExceptionMessage.COULD_NOT_SAVE_AUTHOR);
         }
     }
 
