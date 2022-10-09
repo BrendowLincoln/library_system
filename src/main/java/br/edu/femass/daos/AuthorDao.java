@@ -47,6 +47,7 @@ public class AuthorDao extends Persistence implements Dao<Author> {
             in.close();
             List<Author> authors = getObjectMapper().readValue(json, new TypeReference<List<Author>>(){});
             return authors;
+
         } catch (FileNotFoundException f) {
             return new ArrayList<Author>();
         }

@@ -8,6 +8,9 @@ import org.junit.jupiter.api.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AuthorDaoTest {
     private AuthorDao _sut;
@@ -64,5 +67,154 @@ public class AuthorDaoTest {
 
         //When // Then
         Assertions.assertDoesNotThrow(() -> _sut.save(author), AuthorDaoExceptionMessage.COULD_NOT_SAVE_AUTHOR);
+    }
+
+    @Test
+    @DisplayName("Deve recuperar todos os autores cadastrados")
+    public void should_retriever_all_authors_registered() throws Exception {
+        //Given
+        List<Author> authors = new ArrayList<Author>();
+
+        for (int i = 0; i < 5; i++) {
+            Author newAuthor = new Author(
+                    Long.valueOf(i),
+                    "Fulano" + i,
+                    " de Souza",
+                    Nationality.JAMAICANO.name()
+            );
+            _sut.save(newAuthor);
+            authors.add(newAuthor);
+        }
+
+        //When
+        List<Author> result = _sut.getAll();
+
+        //Then
+        Assertions.assertEquals(false, result.isEmpty());
+        result.forEach(author -> {
+            authors.contains(author);
+        });
+    }
+
+    @Test
+    @DisplayName("Deve retornar uma lista vazia caso não encontre o arquivo")
+    public void should_return_an_empty_list_if_file_not_found() throws Exception {
+        //Given
+        //When
+        List<Author> result = _sut.getAll();
+
+        //Then
+        Assertions.assertEquals(true, result.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Deve retornar o objeto autor pelo código")
+    public void should_return_the_author_by_code() throws Exception  {
+        //Given
+        List<Author> authors = new ArrayList<Author>();
+
+        for (int i = 0; i < 2; i++) {
+            Author newAuthor = new Author(
+                    Long.valueOf(i),
+                    "Fulano" + i,
+                    " de Souza",
+                    Nationality.JAMAICANO.name()
+            );
+            _sut.save(newAuthor);
+            authors.add(newAuthor);
+        }
+        //When
+        Author result = _sut.getByCode(authors.get(1).getCode());
+
+        //Then
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(authors.get(1).getCode(), result.getCode());
+        Assertions.assertEquals(authors.get(1).getName(), result.getName());
+        Assertions.assertEquals(authors.get(1).getSecondName(), result.getSecondName());
+        Assertions.assertEquals(authors.get(1).getNationality(), result.getNationality());
+    }
+
+
+    @Test
+    @DisplayName("Deve retornar o null caso não encontre o autor pelo código")
+    public void should_return_null_in_case_did_not_find_the_author_by_code() throws Exception  {
+        //Given
+        List<Author> authors = new ArrayList<Author>();
+
+        for (int i = 0; i < 2; i++) {
+            Author newAuthor = new Author(
+                    Long.valueOf(i),
+                    "Fulano" + i,
+                    " de Souza",
+                    Nationality.JAMAICANO.name()
+            );
+            _sut.save(newAuthor);
+            authors.add(newAuthor);
+        }
+        //When
+        Author result = _sut.getByCode(3L);
+
+        //Then
+        Assertions.assertNull(result);
+    }
+
+    @Test
+    @DisplayName("Deve atualizar o autor")
+    public void should_update_author() throws Exception {
+        //Given
+        List<Author> authors = new ArrayList<Author>();
+
+        for (int i = 0; i < 3; i++) {
+            Author newAuthor = new Author(
+                    Long.valueOf(i),
+                    "Fulano" + i,
+                    " de Souza",
+                    Nationality.JAMAICANO.name()
+            );
+            _sut.save(newAuthor);
+            authors.add(newAuthor);
+        }
+
+        Author updatedAuthor = new Author(
+                authors.get(1).getCode(),
+                "Siclano",
+                " Silva",
+                Nationality.BRASILEIRO.name()
+        );
+
+        //When
+        _sut.update(updatedAuthor);
+        Author result = _sut.getByCode(updatedAuthor.getCode());
+
+        //Then
+        Assertions.assertEquals(updatedAuthor.getCode(), result.getCode());
+        Assertions.assertEquals(updatedAuthor.getName(), result.getName());
+        Assertions.assertEquals(updatedAuthor.getSecondName(), result.getSecondName());
+        Assertions.assertEquals(updatedAuthor.getNationality(), result.getNationality());
+    }
+
+    @Test
+    @DisplayName("Deve deletar o autor")
+    public void should_delete_author() throws Exception {
+        //Given
+        List<Author> authors = new ArrayList<Author>();
+
+        for (int i = 0; i < 3; i++) {
+            Author newAuthor = new Author(
+                    Long.valueOf(i),
+                    "Fulano" + i,
+                    " de Souza",
+                    Nationality.JAMAICANO.name()
+            );
+            _sut.save(newAuthor);
+            authors.add(newAuthor);
+        }
+
+        //When
+        _sut.delete(authors.get(0).getCode());
+        List<Author> results = _sut.getAll();
+
+        //Then
+        Assertions.assertFalse(results.stream().map(a -> a.getCode()).collect(Collectors.toList()).contains(authors.get(0).getCode()));
     }
 }
