@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class AuthorView extends JFrame {
+public class AuthorGui extends JFrame {
     private JPanel authorPanel;
     private JPanel titlePanel;
     private JPanel mainPanel;
@@ -31,7 +31,7 @@ public class AuthorView extends JFrame {
     private Boolean _isNew = true;
 
 
-    public AuthorView() {
+    public AuthorGui() {
         _authorDao = new AuthorDao();
 
         initialize();

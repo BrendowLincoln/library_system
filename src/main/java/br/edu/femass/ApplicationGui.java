@@ -1,15 +1,19 @@
 package br.edu.femass;
 
 import br.edu.femass.utils.GlobalConstants;
-import br.edu.femass.views.AuthorView;
+import br.edu.femass.views.AuthorGui;
 import br.edu.femass.utils.Menus;
+import br.edu.femass.views.BookGui;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ContainerAdapter;
+import java.beans.PropertyChangeListener;
 
-public class ApplicationView extends JFrame {
+public class ApplicationGui extends JFrame {
     private JPanel applicationPanel;
     private JPanel headerContainer;
     private JPanel mainContainer;
@@ -23,15 +27,13 @@ public class ApplicationView extends JFrame {
     private JButton bookButton;
     private JPanel buttonMenuContainer;
 
+    public ApplicationGui()  {
+        initialize();
 
-    public ApplicationView()  {
-
-        setLogoImage();
 
         bookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 menuStateController(Menus.BOOKS);
             }
         });
@@ -40,18 +42,6 @@ public class ApplicationView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 menuStateController(Menus.AUTHORS);
-
-                AuthorView authorview = new AuthorView();
-                mainContainer.removeAll();
-                mainContainer.setLayout(new GridBagLayout());
-                authorview.getAuthorPanel().setSize(mainContainer.getSize());
-                authorview.getAuthorPanel().setPreferredSize(mainContainer.getSize());
-
-                GridBagConstraints c = new GridBagConstraints();
-                c.fill = GridBagConstraints.CENTER;
-                mainContainer.add(authorview.getAuthorPanel(), c);
-                mainContainer.validate();
-                mainContainer.repaint();
             }
         });
 
@@ -59,7 +49,6 @@ public class ApplicationView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 menuStateController(Menus.READERS);
-
             }
         });
 
@@ -83,10 +72,9 @@ public class ApplicationView extends JFrame {
     }
 
     //Private Methods
-
     private void initialize() {
         setLogoImage();
-
+        menuStateController(Menus.BOOKS);
     }
 
 
@@ -116,6 +104,9 @@ public class ApplicationView extends JFrame {
                 employeeButton.setBackground(GlobalConstants.LIGHT_GRAY);
                 employeeButton.setForeground(GlobalConstants.GRAY);
 
+                BookGui bookView = new BookGui();
+                configureMainContent(bookView.getBookPanel());
+
                 break;
 
             case AUTHORS:
@@ -133,6 +124,8 @@ public class ApplicationView extends JFrame {
                 employeeButton.setBackground(GlobalConstants.LIGHT_GRAY);
                 employeeButton.setForeground(GlobalConstants.GRAY);
 
+                AuthorGui authorView = new AuthorGui();
+                configureMainContent(authorView.getAuthorPanel());
                 break;
 
             case READERS:
@@ -184,5 +177,18 @@ public class ApplicationView extends JFrame {
                 loanButton.setForeground(GlobalConstants.GRAY);
                 break;
         }
+   }
+
+   private void configureMainContent(JPanel panel) {
+       mainContainer.removeAll();
+       mainContainer.setLayout(new GridBagLayout());
+       panel.setSize(mainContainer.getSize());
+       panel.setPreferredSize(mainContainer.getSize());
+
+       GridBagConstraints c = new GridBagConstraints();
+       c.fill = GridBagConstraints.CENTER;
+       mainContainer.add(panel, c);
+       mainContainer.validate();
+       mainContainer.repaint();
    }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="br.edu.femass.ApplicationView">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="br.edu.femass.ApplicationGui">
   <grid id="27dc6" binding="applicationPanel" layout-manager="GridBagLayout">
     <constraints>
       <xy x="1" y="0" width="1218" height="516"/>
@@ -11,7 +11,7 @@
       <enabled value="true"/>
       <maximumSize width="0" height="0"/>
       <minimumSize width="663" height="60"/>
-      <opaque value="true"/>
+      <opaque value="false"/>
       <preferredSize width="663" height="60"/>
     </properties>
     <border type="none">
@@ -167,7 +167,9 @@
         </constraints>
         <properties>
           <background color="-1"/>
-          <opaque value="false"/>
+          <enabled value="true"/>
+          <opaque value="true"/>
+          <visible value="true"/>
         </properties>
         <border type="none"/>
         <children/>
