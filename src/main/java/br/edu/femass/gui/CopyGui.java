@@ -1,26 +1,25 @@
-package br.edu.femass.views;
+package br.edu.femass.gui;
 
 import javax.swing.*;
 
-public class BookGui {
-    private JPanel bookPanel;
-    private JPanel titlePanel;
+public class CopyGui {
+    private JPanel copiesPanel;
     private JPanel mainPanel;
     private JScrollPane listContainer;
-    private JList bookList;
+    private JList authorList;
     private JPanel formContainer;
     private JTextField firstNameInput;
+    private JTextField secondNameInput;
     private JTextField codeInput;
     private JButton addButton;
     private JButton saveButton;
     private JButton cancelButton;
     private JButton deleteButton;
-    private JComboBox authorCombo;
-    private JButton addCoopyButton;
-    private JComboBox copyCombo;
+    private JComboBox nationalityCombo;
 
+    public CopyGui() { }
 
-    public JPanel getBookPanel() {
-        return this.bookPanel;
+    public JPanel getCopiesPanel() {
+        return copiesPanel;
     }
 }

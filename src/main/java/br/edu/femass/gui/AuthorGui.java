@@ -1,4 +1,4 @@
-package br.edu.femass.views;
+package br.edu.femass.gui;
 
 import br.edu.femass.daos.AuthorDao;
 import br.edu.femass.models.Author;
@@ -27,12 +27,12 @@ public class AuthorGui extends JFrame {
     private JButton deleteButton;
     private JComboBox nationalityCombo;
 
-    private AuthorDao _authorDao;
+    private AuthorDao _bookDao;
     private Boolean _isNew = true;
 
 
     public AuthorGui() {
-        _authorDao = new AuthorDao();
+        _bookDao = new AuthorDao();
 
         initialize();
 
@@ -48,7 +48,7 @@ public class AuthorGui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    _authorDao.delete(Long.parseLong(codeInput.getText()));
+                    _bookDao.delete(Long.parseLong(codeInput.getText()));
                     clearFields();
                     setEditMode(false);
                     updateList();
@@ -145,7 +145,7 @@ public class AuthorGui extends JFrame {
 
     private void updateList() {
         try {
-            List<Author> clientes = _authorDao.getAll();
+            List<Author> clientes = _bookDao.getAll();
             authorList.setListData(clientes.toArray());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -175,13 +175,13 @@ public class AuthorGui extends JFrame {
             Nationality nationality = (Nationality) nationalityCombo.getSelectedItem();
 
             Author newAuthor = new Author(
-                    _authorDao.getNextCode(),
+                    _bookDao.getNextCode(),
                     firstNameInput.getText(),
                     secondNameInput.getText(),
                     nationality.name()
             );
 
-            _authorDao.save(newAuthor);
+            _bookDao.save(newAuthor);
 
             clearFields();
             setEditMode(false);
@@ -202,7 +202,7 @@ public class AuthorGui extends JFrame {
                     newNationality.name()
             );
 
-            _authorDao.update(updatedAuthor);
+            _bookDao.update(updatedAuthor);
 
             clearFields();
             setEditMode(false);

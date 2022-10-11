@@ -1,17 +1,14 @@
 package br.edu.femass;
 
 import br.edu.femass.utils.GlobalConstants;
-import br.edu.femass.views.AuthorGui;
+import br.edu.femass.gui.AuthorGui;
 import br.edu.femass.utils.Menus;
-import br.edu.femass.views.BookGui;
+import br.edu.femass.gui.BookGui;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ContainerAdapter;
-import java.beans.PropertyChangeListener;
 
 public class ApplicationGui extends JFrame {
     private JPanel applicationPanel;
@@ -74,7 +71,6 @@ public class ApplicationGui extends JFrame {
     //Private Methods
     private void initialize() {
         setLogoImage();
-        menuStateController(Menus.BOOKS);
     }
 
 
