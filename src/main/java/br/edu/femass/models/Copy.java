@@ -6,27 +6,31 @@ import java.time.LocalDate;
 public class Copy {
     private Long code;
     private LocalDate acquisitionDate;
+    private Boolean isFixed;
     private Boolean loaned;
 
     public Copy() {
         this.loaned = false;
     }
 
-    public Copy(Long code, LocalDate acquisitionDate) {
+    public Copy(Long code, LocalDate acquisitionDate, Boolean isFixed) {
         this.code = code;
         this.acquisitionDate = acquisitionDate;
+        this.isFixed = isFixed;
         this.loaned = false;
     }
 
     public Long getCode() {
-        return code;
+        return this.code;
     }
 
     public LocalDate getAcquisitionDate() {
-        return acquisitionDate;
+        return this.acquisitionDate;
     }
 
-    public Boolean getLoaned() { return loaned; }
+    public Boolean getLoaned() { return this.loaned; }
+
+    public Boolean getIsFixed() { return this.isFixed; }
 
     public void setLoaned(Boolean loaned) {
         this.loaned = loaned;

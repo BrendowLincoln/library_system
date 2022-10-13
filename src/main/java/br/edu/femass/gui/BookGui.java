@@ -181,8 +181,8 @@ public class BookGui {
 
     private void openCopiesFormDialog() {
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        final Integer screenWidth = (int) (screenSize.getWidth() * 0.4);
-        final Integer screenHeight = (int) (screenSize.getHeight() * 0.6);
+        final Integer screenWidth = (int) (screenSize.getWidth() * 0.45);
+        final Integer screenHeight = (int) (screenSize.getHeight() * 0.4);
 
         JDialog frame = new JDialog(new Frame(), true);
         CopyGui gui = new CopyGui();
