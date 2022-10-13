@@ -3,7 +3,7 @@ package br.edu.femass.daos;
 import br.edu.femass.models.Author;
 import br.edu.femass.utils.GlobalConstants;
 import br.edu.femass.utils.Nationality;
-import br.edu.femass.utils.exceptions.AuthorDaoExceptionMessage;
+import br.edu.femass.utils.exceptions.GlobalExceptionMessage;
 import org.junit.jupiter.api.*;
 
 import java.io.FileWriter;
@@ -51,7 +51,7 @@ public class AuthorDaoTest {
         Author author = new Author();
 
         //When //Then
-         Assertions.assertThrows(IllegalArgumentException.class, () -> _sut.save(author), AuthorDaoExceptionMessage.COULD_NOT_SAVE_AUTHOR);
+         Assertions.assertThrows(IllegalArgumentException.class, () -> _sut.save(author), GlobalExceptionMessage.COULD_NOT_SAVE_AUTHOR);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class AuthorDaoTest {
         );
 
         //When // Then
-        Assertions.assertDoesNotThrow(() -> _sut.save(author), AuthorDaoExceptionMessage.COULD_NOT_SAVE_AUTHOR);
+        Assertions.assertDoesNotThrow(() -> _sut.save(author), GlobalExceptionMessage.COULD_NOT_SAVE_AUTHOR);
     }
 
     @Test

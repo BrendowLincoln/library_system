@@ -1,7 +1,12 @@
 package br.edu.femass.gui;
 
+import br.edu.femass.daos.AuthorDao;
 import br.edu.femass.daos.BookDao;
+import br.edu.femass.models.Author;
 import br.edu.femass.models.Book;
+import br.edu.femass.models.Copy;
+import br.edu.femass.utils.Nationality;
+import br.edu.femass.utils.exceptions.GlobalExceptionMessage;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -9,6 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookGui {
@@ -24,15 +30,18 @@ public class BookGui {
     private JButton saveButton;
     private JButton cancelButton;
     private JButton deleteButton;
-    private JComboBox authorCombo;
+    private JComboBox authorsCombo;
     private JButton addCoopyButton;
-    private JComboBox copyCombo;
+    private JComboBox copiesCombo;
 
     private BookDao _bookDao;
+    private AuthorDao _authorDao;
     private Boolean _isNew = true;
+    private List<Copy> _copies = new ArrayList<Copy>();
 
     public BookGui() {
         _bookDao = new BookDao();
+        _authorDao = new AuthorDao();
 
         initialize();
 
@@ -105,7 +114,11 @@ public class BookGui {
 
     // Private methods
     private void initialize() {
+
         setEditMode(false);
+        updateList();
+        updateAuthorsCombo();
+        updateCopiesCombo(_copies);
     }
 
     private void setEditMode(boolean editing) {
@@ -113,8 +126,8 @@ public class BookGui {
 
         if(editing) {
             titleInput.setEditable(true);
-            authorCombo.setEnabled(true);
-            copyCombo.setEnabled(true);
+            authorsCombo.setEnabled(true);
+            copiesCombo.setEnabled(true);
 
             addButton.setVisible(false);
             cancelButton.setVisible(true);
@@ -128,8 +141,8 @@ public class BookGui {
         }
         else {
             titleInput.setEditable(false);
-            authorCombo.setEnabled(false);
-            copyCombo.setEnabled(false);
+            authorsCombo.setEnabled(false);
+            copiesCombo.setEnabled(false);
 
             addButton.setVisible(true);
             cancelButton.setVisible(false);
@@ -142,24 +155,47 @@ public class BookGui {
     private void clearFields() {
         codeInput.setText(null);
         titleInput.setText(null);
-        authorCombo.setSelectedItem(null);
-        copyCombo.setSelectedItem(null);
+        authorsCombo.setSelectedItem(null);
+        copiesCombo.setSelectedItem(null);
         bookList.clearSelection();
     }
 
     private void updateList() {
         try {
-            List<Book> clientes = _bookDao.getAll();
-            bookList.setListData(clientes.toArray());
+            List<Book> books = _bookDao.getAll();
+            bookList.setListData(books.toArray());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
+    private void updateCopiesCombo(List<Copy> copiesFromBookSelected) {
+        copiesCombo.removeAllItems();
+        try {
+            for (Copy copy: copiesFromBookSelected) {
+                copiesCombo.addItem(copy);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, GlobalExceptionMessage.COULD_NOT_LOAD_COPIES_LIST);
+        }
+    }
+
+    private void updateAuthorsCombo() {
+        authorsCombo.removeAllItems();
+        try {
+            List<Author> authors = _authorDao.getAll();
+            for(Author author: authors) {
+                authorsCombo.addItem(author);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, GlobalExceptionMessage.COULD_NOT_LOAD_AUTHORS_LIST);
+        }
+    }
+
     private boolean hasEmptyFields() {
         return titleInput.getText().isEmpty() ||
-                authorCombo.getSelectedItem().toString().isEmpty() ||
-                copyCombo.getSelectedItem().toString().isEmpty();
+                authorsCombo.getSelectedItem().toString().isEmpty() ||
+                copiesCombo.getSelectedItem().toString().isEmpty();
     }
 
     private void save() {
@@ -171,7 +207,25 @@ public class BookGui {
     }
 
     private void create() {
+        try {
+            Author authorSelected = (Author) authorsCombo.getSelectedItem();
 
+            Book newBook = new Book(
+                    _bookDao.getNextCode(),
+                    titleInput.getText(),
+                    authorSelected,
+                    copiesCombo.()
+            );
+
+            _bookDao.save(newAuthor);
+
+            clearFields();
+            setEditMode(false);
+            updateList();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
     }
 
     private void change() {

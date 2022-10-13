@@ -145,8 +145,8 @@ public class AuthorGui extends JFrame {
 
     private void updateList() {
         try {
-            List<Author> clientes = _bookDao.getAll();
-            authorList.setListData(clientes.toArray());
+            List<Author> authors = _bookDao.getAll();
+            authorList.setListData(authors.toArray());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

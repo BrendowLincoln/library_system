@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Book {
     private Long code;
     private String title;
+    private Author author;
     private List<Copy> copies;
 
     public Book() {  }
@@ -23,6 +24,8 @@ public class Book {
     public String getTitle() {
         return this.title;
     }
+
+    public Author getAuthor() { return this.author; }
 
     public List<Copy> getCopies() {
         return this.copies;

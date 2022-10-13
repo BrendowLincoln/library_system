@@ -17,7 +17,8 @@
         </constraints>
         <properties>
           <alignmentX value="0.0"/>
-          <opaque value="false"/>
+          <background color="-1"/>
+          <opaque value="true"/>
         </properties>
         <clientProperties>
           <html.disable class="java.lang.Boolean" value="false"/>
@@ -35,6 +36,7 @@
             <properties>
               <alignmentX value="0.5"/>
               <background color="-16777216"/>
+              <opaque value="false"/>
             </properties>
             <border type="line">
               <color color="-1381654"/>
