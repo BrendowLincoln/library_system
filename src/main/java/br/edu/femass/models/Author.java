@@ -44,6 +44,9 @@ public class Author {
     @Override
     public boolean equals(Object object) {
         Author author = (Author) object;
-        return this.code.equals(author.getCode().toString());
+        if(author == null) {
+            return false;
+        }
+        return this.code.equals(author.getCode());
     }
 }

@@ -299,7 +299,7 @@
                 </constraints>
                 <properties>
                   <background color="-1"/>
-                  <editable value="true"/>
+                  <editable value="false"/>
                   <model/>
                 </properties>
               </component>

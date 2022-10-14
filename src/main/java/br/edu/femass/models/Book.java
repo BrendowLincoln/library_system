@@ -11,9 +11,10 @@ public class Book {
 
     public Book() {  }
 
-    public Book(Long code, String title, List<Copy> copies) {
+    public Book(Long code, String title, Author author, List<Copy> copies) {
         this.code = code;
         this.title = title;
+        this.author = author;
         this.copies = copies;
     }
 
