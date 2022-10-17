@@ -197,7 +197,7 @@ public class BookGui {
 
     private boolean hasEmptyFields() {
         return titleInput.getText().isEmpty() ||
-                authorsCombo.getSelectedItem().toString().isEmpty() ||
+                (authorsCombo.getSelectedItem() == null || authorsCombo.getSelectedItem().toString().isEmpty()) ||
                 copiesCombo.getItemCount() <= 0;
     }
 
