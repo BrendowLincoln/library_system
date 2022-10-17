@@ -27,7 +27,7 @@ public class AuthorDao extends Persistence implements Dao<Author> {
     @Override
     public void save(Author author) throws Exception {
         try {
-            if(author.getCode() == null || author.getName().isEmpty() || author.getSecondName().isEmpty() || author.getNationality().isEmpty()) {
+            if(author.getCode() == null || author.getName().isEmpty() || author.getSecondName().isEmpty() || author.getNationality() == null) {
                 throw new IllegalArgumentException(GlobalExceptionMessage.COULD_NOT_SAVE_AUTHOR);
             }
 

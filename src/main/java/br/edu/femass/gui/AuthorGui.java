@@ -87,7 +87,7 @@ public class AuthorGui extends JFrame {
                 codeInput.setText(selectedAuthor.getCode().toString());
                 firstNameInput.setText(selectedAuthor.getName());
                 secondNameInput.setText(selectedAuthor.getSecondName());
-                nationalityCombo.setSelectedItem(Nationality.valueOf(selectedAuthor.getNationality()));
+                nationalityCombo.setSelectedItem(Nationality.valueOf(selectedAuthor.getNationality().name()));
 
                 setEditMode(true);
             }
@@ -178,7 +178,7 @@ public class AuthorGui extends JFrame {
                     _authorDao.getNextCode(),
                     firstNameInput.getText(),
                     secondNameInput.getText(),
-                    nationality.name()
+                    nationality
             );
 
             _authorDao.save(newAuthor);
@@ -199,7 +199,7 @@ public class AuthorGui extends JFrame {
                     Long.parseLong(codeInput.getText()),
                     firstNameInput.getText(),
                     secondNameInput.getText(),
-                    newNationality.name()
+                    newNationality
             );
 
             _authorDao.update(updatedAuthor);

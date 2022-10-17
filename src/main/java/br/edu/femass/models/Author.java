@@ -1,10 +1,12 @@
 package br.edu.femass.models;
 
+import br.edu.femass.utils.Nationality;
+
 public class Author {
     private Long code;
     private String name;
     private String secondName;
-    private String nationality;
+    private Nationality nationality;
 
     public Author() { }
 
@@ -12,7 +14,7 @@ public class Author {
         Long code,
         String name,
         String secondName,
-        String nationality
+        Nationality nationality
     ) {
         this.code = code;
         this.name = name;
@@ -32,7 +34,7 @@ public class Author {
         return this.secondName;
     }
 
-    public String getNationality() {
+    public Nationality getNationality() {
         return this.nationality;
     }
 

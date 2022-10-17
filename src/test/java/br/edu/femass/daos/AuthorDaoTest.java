@@ -33,7 +33,7 @@ public class AuthorDaoTest {
                 1L,
                 "Teste",
                 "Autor",
-                Nationality.BRASILEIRO.name()
+                Nationality.BRASILEIRO
         );
 
         //When
@@ -62,7 +62,7 @@ public class AuthorDaoTest {
                 1L,
                 "Teste",
                 "Autor",
-                Nationality.BRASILEIRO.name()
+                Nationality.BRASILEIRO
         );
 
         //When // Then
@@ -80,7 +80,7 @@ public class AuthorDaoTest {
                     Long.valueOf(i),
                     "Fulano" + i,
                     " de Souza",
-                    Nationality.JAMAICANO.name()
+                    Nationality.JAMAICANO
             );
             _sut.save(newAuthor);
             authors.add(newAuthor);
@@ -118,7 +118,7 @@ public class AuthorDaoTest {
                     Long.valueOf(i),
                     "Fulano" + i,
                     " de Souza",
-                    Nationality.JAMAICANO.name()
+                    Nationality.JAMAICANO
             );
             _sut.save(newAuthor);
             authors.add(newAuthor);
@@ -146,7 +146,7 @@ public class AuthorDaoTest {
                     Long.valueOf(i),
                     "Fulano" + i,
                     " de Souza",
-                    Nationality.JAMAICANO.name()
+                    Nationality.JAMAICANO
             );
             _sut.save(newAuthor);
             authors.add(newAuthor);
@@ -169,7 +169,7 @@ public class AuthorDaoTest {
                     Long.valueOf(i),
                     "Fulano" + i,
                     " de Souza",
-                    Nationality.JAMAICANO.name()
+                    Nationality.JAMAICANO
             );
             _sut.save(newAuthor);
             authors.add(newAuthor);
@@ -179,7 +179,7 @@ public class AuthorDaoTest {
                 authors.get(1).getCode(),
                 "Siclano",
                 " Silva",
-                Nationality.BRASILEIRO.name()
+                Nationality.BRASILEIRO
         );
 
         //When
@@ -204,7 +204,7 @@ public class AuthorDaoTest {
                     Long.valueOf(i),
                     "Fulano" + i,
                     " de Souza",
-                    Nationality.JAMAICANO.name()
+                    Nationality.JAMAICANO
             );
             _sut.save(newAuthor);
             authors.add(newAuthor);
