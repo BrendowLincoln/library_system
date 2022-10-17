@@ -7,6 +7,9 @@ public class GlobalExceptionMessage {
     //BookDao
     public static final String COULD_NOT_SAVE_BOOK = "Não foi possível salvar o lívro.";
 
+    //ReaderDao
+    public static final String COULD_NOT_SAVE_READER = "Não foi possível salvar o leitor.";
+
     //BookGui
     public static final String COULD_NOT_LOAD_COPIES_LIST = "Não foi possível preecher a lista de cópias do livro.";
     public static final String COULD_NOT_LOAD_AUTHORS_LIST = "Não foi possível preecher a lista de autores.";
