@@ -27,12 +27,12 @@ public class AuthorGui extends JFrame {
     private JButton deleteButton;
     private JComboBox nationalityCombo;
 
-    private AuthorDao _bookDao;
+    private AuthorDao _authorDao;
     private Boolean _isNew = true;
 
 
     public AuthorGui() {
-        _bookDao = new AuthorDao();
+        _authorDao = new AuthorDao();
 
         initialize();
 
@@ -48,7 +48,7 @@ public class AuthorGui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    _bookDao.delete(Long.parseLong(codeInput.getText()));
+                    _authorDao.delete(Long.parseLong(codeInput.getText()));
                     clearFields();
                     setEditMode(false);
                     updateList();
@@ -145,7 +145,7 @@ public class AuthorGui extends JFrame {
 
     private void updateList() {
         try {
-            List<Author> authors = _bookDao.getAll();
+            List<Author> authors = _authorDao.getAll();
             authorList.setListData(authors.toArray());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -175,13 +175,13 @@ public class AuthorGui extends JFrame {
             Nationality nationality = (Nationality) nationalityCombo.getSelectedItem();
 
             Author newAuthor = new Author(
-                    _bookDao.getNextCode(),
+                    _authorDao.getNextCode(),
                     firstNameInput.getText(),
                     secondNameInput.getText(),
                     nationality.name()
             );
 
-            _bookDao.save(newAuthor);
+            _authorDao.save(newAuthor);
 
             clearFields();
             setEditMode(false);
@@ -202,7 +202,7 @@ public class AuthorGui extends JFrame {
                     newNationality.name()
             );
 
-            _bookDao.update(updatedAuthor);
+            _authorDao.update(updatedAuthor);
 
             clearFields();
             setEditMode(false);

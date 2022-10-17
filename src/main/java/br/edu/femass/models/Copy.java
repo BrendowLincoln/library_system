@@ -39,12 +39,15 @@ public class Copy {
     @Override
     public String toString() {
         SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
-        return "Copy: " + this.code + "- Emprestado: " + (this.loaned ? "Emprestado" : "Disponível");
+        return "Código: " + this.code + " - " + (this.loaned ? "Emprestado" : "Disponível");
     }
 
     @Override
     public boolean equals(Object object) {
         Copy copy = (Copy) object;
+        if(copy == null) {
+            return false;
+        }
         return this.code.equals(copy.code);
     }
 }

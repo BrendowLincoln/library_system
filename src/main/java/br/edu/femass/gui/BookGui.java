@@ -5,14 +5,14 @@ import br.edu.femass.daos.BookDao;
 import br.edu.femass.models.Author;
 import br.edu.femass.models.Book;
 import br.edu.femass.models.Copy;
+import br.edu.femass.utils.Nationality;
 import br.edu.femass.utils.exceptions.GlobalExceptionMessage;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +48,7 @@ public class BookGui {
             @Override
             public void actionPerformed(ActionEvent e) {
                 _isNew = true;
+                _currentCopies = new ArrayList<Copy>();
                 setEditMode(true);
                 updateAuthorsCombo();
             }
@@ -70,9 +71,8 @@ public class BookGui {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setEditMode(false);
                 clearFields();
-
+                setEditMode(false);
             }
         });
 
@@ -80,7 +80,7 @@ public class BookGui {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(hasEmptyFields()) {
-                    JOptionPane.showMessageDialog(null, "Preenchimento dos campos é obrigatório.");
+                    JOptionPane.showMessageDialog(null, GlobalExceptionMessage.FILLING_IN_THE_FIELDS_IS_MANDATORY);
                     return;
                 }
                 save();
@@ -98,6 +98,7 @@ public class BookGui {
                 codeInput.setText(selectedBook.getCode().toString());
                 titleInput.setText(selectedBook.getTitle());
                 authorsCombo.setSelectedItem(selectedBook.getAuthor());
+                _currentCopies = selectedBook.getCopies();
 
                 updateCopiesCombo(selectedBook.getCopies());
                 setEditMode(true);
@@ -211,9 +212,6 @@ public class BookGui {
     private void create() {
         try {
             Author authorSelected = (Author) authorsCombo.getSelectedItem();
-            for(int i = 0; i < copiesCombo.getItemCount(); i++) {
-                _currentCopies.add((Copy) copiesCombo.getItemAt(i));
-            }
 
             Book newBook = new Book(
                     _bookDao.getNextCode(),
@@ -232,22 +230,38 @@ public class BookGui {
     }
 
     private void change() {
+        try {
 
+            Book updatedAuthor = new Book(
+                    Long.parseLong(codeInput.getText()),
+                    titleInput.getText(),
+                    (Author) authorsCombo.getSelectedItem(),
+                    _currentCopies
+            );
+
+            _bookDao.update(updatedAuthor);
+
+            clearFields();
+            setEditMode(false);
+            updateList();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }
 
 
     private void openCopiesFormDialog() {
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        final Integer screenWidth = (int) (screenSize.getWidth() * 0.45);
+        final Integer screenWidth = (int) (screenSize.getWidth() * 0.57);
         final Integer screenHeight = (int) (screenSize.getHeight() * 0.4);
 
         JDialog frame = new JDialog(new Frame(), true);
-        CopyGui gui = new CopyGui();
-        frame.setContentPane(gui.getCopiesPanel());
+        CopyGui copyGui = new CopyGui(_currentCopies);
+        frame.setContentPane(copyGui.getCopiesPanel());
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(screenWidth, screenHeight);
-        frame.setTitle((_isNew ? "Novo livro" : titleInput.getText()) + " - Cópias");
+        frame.setTitle((titleInput.getText().isBlank() ? "Novo livro" : titleInput.getText()) + " - Cópias");
         frame.setLocation(
                 screenSize.width/2- frame.getSize().width/2,
                 screenSize.height/2-frame.getSize().height/2
@@ -255,6 +269,15 @@ public class BookGui {
 
         frame.setVisible(true);
         frame.pack();
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                _currentCopies = copyGui.getCopies();
+                updateCopiesCombo(_currentCopies);
+            }
+
+        });
     }
 
 

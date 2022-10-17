@@ -10,4 +10,8 @@ public class GlobalExceptionMessage {
     //BookGui
     public static final String COULD_NOT_LOAD_COPIES_LIST = "Não foi possível preecher a lista de cópias do livro.";
     public static final String COULD_NOT_LOAD_AUTHORS_LIST = "Não foi possível preecher a lista de autores.";
+
+    //Commons
+    public static final String INVALID_DATE = "Data inválida";
+    public static final String FILLING_IN_THE_FIELDS_IS_MANDATORY = "Preenchimento dos campos é obrigatório.";
 }

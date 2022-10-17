@@ -5,6 +5,7 @@ import br.edu.femass.models.Copy;
 import java.util.List;
 
 public class CopyDao extends Persistence implements Dao<Copy> {
+
     @Override
     public void save(Copy copy) throws Exception {
 
@@ -22,7 +23,7 @@ public class CopyDao extends Persistence implements Dao<Copy> {
 
     @Override
     public Long getNextCode() throws Exception {
-        return null;
+        return nextEntityIndex("copy");
     }
 
     @Override
