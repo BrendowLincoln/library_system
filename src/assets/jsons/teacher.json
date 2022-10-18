@@ -33,5 +33,23 @@
   },
   "readerType" : "TEACHER",
   "maximumReturnPeriod" : 30,
-  "subject" : "Programação de Computadores  3"
+  "subject" : "Desenvolvimento de Sistemas 1"
+}, {
+  "code" : 7,
+  "name" : "Isac Mendes",
+  "address" : {
+    "street" : "Av. sla",
+    "number" : 32,
+    "neighborhood" : "Imburo",
+    "city" : "Macaé",
+    "state" : "Rio de Janeiro",
+    "country" : "BRA"
+  },
+  "telephone" : {
+    "areaCode" : 22,
+    "number" : 532452345234
+  },
+  "readerType" : "TEACHER",
+  "maximumReturnPeriod" : 30,
+  "subject" : "Projeto de Sistemas 2"
 } ]

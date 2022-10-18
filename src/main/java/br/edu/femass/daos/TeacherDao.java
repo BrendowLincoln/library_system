@@ -1,5 +1,6 @@
 package br.edu.femass.daos;
 
+import br.edu.femass.models.Author;
 import br.edu.femass.models.Teacher;
 import br.edu.femass.utils.GlobalConstants;
 import br.edu.femass.utils.exceptions.GlobalExceptionMessage;
@@ -75,7 +76,14 @@ public class TeacherDao extends Persistence implements Dao<Teacher> {
 
     @Override
     public void update(Teacher teacher) throws Exception {
+        List<Teacher> teachers = getAll();
+        for (int i = 0; i < teachers.size(); i++) {
+            if (teachers.get(i).getCode() == teacher.getCode()) {
+                teachers.set(i, teacher);
+            }
+        }
 
+        writeInFile(teachers);
     }
 
     @Override

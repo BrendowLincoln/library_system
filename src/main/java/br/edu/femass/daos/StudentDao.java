@@ -77,7 +77,14 @@ public class StudentDao extends Persistence implements Dao<Student> {
 
     @Override
     public void update(Student student) throws Exception {
+        List<Student> students = getAll();
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getCode() == student.getCode()) {
+                students.set(i, student);
+            }
+        }
 
+        writeInFile(students);
     }
 
     @Override

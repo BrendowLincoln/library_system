@@ -193,6 +193,7 @@ public class ReaderGui {
 
             if(!_isNew) {
                 deleteButton.setVisible(true);
+                readerTypeCombo.setEnabled(false);
             }
         }
         else {
@@ -342,16 +343,53 @@ public class ReaderGui {
 
     private void change() {
         try {
-            Nationality newNationality = (Nationality) countryCombo.getSelectedItem();
+            Country country = (Country) countryCombo.getSelectedItem();
+            ReaderType readerType = (ReaderType) readerTypeCombo.getSelectedItem();
 
-            /*Author updatedAuthor = new Author(
-                    Long.parseLong(codeInput.getText()),
-                    nameInput.getText(),
+            Address newAddress = new Address(
                     streetInput.getText(),
-                    newNationality.name()
+                    Integer.parseInt(numberAddressInput.getText()),
+                    neighborhoodInput.getText(),
+                    cityInput.getText(),
+                    stateInput.getText(),
+                    country
             );
 
-            _readerDao.update(updatedAuthor);*/
+            Telephone newTelephone = new Telephone(
+                    Integer.parseInt(areaCodeInput.getText()),
+                    Long.parseLong(numberInput.getText())
+            );
+
+            switch (readerType) {
+                case STUDENT:
+                    Student updatedStudent  = new Student(
+                            Long.parseLong(codeInput.getText()),
+                            nameInput.getText(),
+                            newAddress,
+                            newTelephone,
+                            readerType,
+                            registerInput.getText()
+                    );
+
+                    _studentDao.update(updatedStudent);
+                    break;
+
+                case TEACHER:
+                    Teacher updatedTeacher = new Teacher(
+                            Long.parseLong(codeInput.getText()),
+                            nameInput.getText(),
+                            newAddress,
+                            newTelephone,
+                            readerType,
+                            subjectInput.getText()
+                    );
+
+                    _teacherDao.update(updatedTeacher);
+                    break;
+
+                default:
+                    break;
+            }
 
             clearFields();
             setEditMode(false);
