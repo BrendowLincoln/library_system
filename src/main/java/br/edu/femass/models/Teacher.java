@@ -6,7 +6,6 @@ import br.edu.femass.utils.ReaderType;
 import br.edu.femass.utils.Telephone;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("teacher")
 public class Teacher extends Reader {
     private String subject;
 

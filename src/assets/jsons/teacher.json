@@ -1,0 +1,37 @@
+[ {
+  "code" : 2,
+  "name" : "Sérgio Hermenegildo",
+  "address" : {
+    "street" : "Av. Sei la",
+    "number" : 23,
+    "neighborhood" : "ffasdf",
+    "city" : "fasdfa",
+    "state" : "fafasd",
+    "country" : "MNG"
+  },
+  "telephone" : {
+    "areaCode" : 22,
+    "number" : 239425224
+  },
+  "readerType" : "TEACHER",
+  "maximumReturnPeriod" : 30,
+  "subject" : "UX e Web"
+}, {
+  "code" : 4,
+  "name" : "Alan Galante",
+  "address" : {
+    "street" : "Av. Sei la ",
+    "number" : 23,
+    "neighborhood" : "Glória",
+    "city" : "Macaé",
+    "state" : "Rio de Janeiro",
+    "country" : "BRA"
+  },
+  "telephone" : {
+    "areaCode" : 22,
+    "number" : 48492942
+  },
+  "readerType" : "TEACHER",
+  "maximumReturnPeriod" : 30,
+  "subject" : "Programação de Computadores  3"
+} ]

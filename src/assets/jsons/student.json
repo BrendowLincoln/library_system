@@ -1,0 +1,37 @@
+[ {
+  "code" : 1,
+  "name" : "Brendow Lincoln",
+  "address" : {
+    "street" : "Av. Dr Sérgio Vieira de Mello",
+    "number" : 23,
+    "neighborhood" : "Lagomar",
+    "city" : "Macaé",
+    "state" : "Rio de Janeiro",
+    "country" : "BRA"
+  },
+  "telephone" : {
+    "areaCode" : 22,
+    "number" : 997457554
+  },
+  "readerType" : "STUDENT",
+  "maximumReturnPeriod" : 15,
+  "register" : "239024923"
+}, {
+  "code" : 5,
+  "name" : "Patrick Bindeli",
+  "address" : {
+    "street" : "Av. Centro",
+    "number" : 21,
+    "neighborhood" : "Centro",
+    "city" : "Macaé",
+    "state" : "Rio de Janeiro",
+    "country" : "BRA"
+  },
+  "telephone" : {
+    "areaCode" : 22,
+    "number" : 4345252345234
+  },
+  "readerType" : "STUDENT",
+  "maximumReturnPeriod" : 15,
+  "register" : "3452345234"
+} ]

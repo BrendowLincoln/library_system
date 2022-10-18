@@ -1,17 +1,21 @@
 package br.edu.femass.gui;
 
 import br.edu.femass.daos.ReaderDao;
-import br.edu.femass.models.Author;
+import br.edu.femass.daos.StudentDao;
+import br.edu.femass.daos.TeacherDao;
 import br.edu.femass.models.Reader;
 import br.edu.femass.models.Student;
 import br.edu.femass.models.Teacher;
 import br.edu.femass.utils.*;
+import br.edu.femass.utils.exceptions.GlobalExceptionMessage;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static br.edu.femass.utils.ReaderType.STUDENT;
@@ -46,12 +50,14 @@ public class ReaderGui {
     private JLabel subjectLabel;
     private JTextField cityInput;
 
-    private ReaderDao _readerDao;
+    private StudentDao _studentDao;
+    private TeacherDao _teacherDao;
     private Boolean _isNew = true;
 
 
     public ReaderGui() {
-        _readerDao = new ReaderDao();
+        _studentDao = new StudentDao();
+        _teacherDao = new TeacherDao();
 
         initialize();
 
@@ -67,7 +73,15 @@ public class ReaderGui {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    _readerDao.delete(Long.parseLong(codeInput.getText()));
+                    ReaderType readerType = (ReaderType) readerTypeCombo.getSelectedItem();
+                    if(readerType == STUDENT) {
+                        _studentDao.delete(Long.parseLong(codeInput.getText()));
+                    }
+
+                    if(readerType == TEACHER) {
+                        _teacherDao.delete(Long.parseLong(codeInput.getText()));
+                    }
+
                     clearFields();
                     setEditMode(false);
                     updateList();
@@ -115,6 +129,17 @@ public class ReaderGui {
                 numberInput.setText(selectedReader.getTelephone().getNumber().toString());
                 readerTypeCombo.setSelectedItem(selectedReader.getReaderType());
 
+                if(selectedReader.getReaderType() == STUDENT) {
+                    Student student = (Student) selectedReader;
+                    registerInput.setText(student.getRegister());
+                }
+
+                if(selectedReader.getReaderType() == TEACHER) {
+                    Teacher teacher = (Teacher) selectedReader;
+                    subjectInput.setText(teacher.getSubject());
+                }
+
+
 
                 setEditMode(true);
             }
@@ -124,7 +149,10 @@ public class ReaderGui {
         readerTypeCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switchFieldByReaderType((ReaderType) readerTypeCombo.getSelectedItem());
+                ReaderType readerType = (ReaderType) readerTypeCombo.getSelectedItem();
+                if(readerType != null) {
+                    switchFieldByReaderType(readerType);
+                }
             }
         });
     }
@@ -156,6 +184,8 @@ public class ReaderGui {
             areaCodeInput.setEditable(true);
             numberInput.setEditable(true);
             readerTypeCombo.setEnabled(true);
+            registerInput.setEditable(true);
+            subjectInput.setEditable(true);
 
 
             addButton.setVisible(false);
@@ -177,6 +207,8 @@ public class ReaderGui {
             areaCodeInput.setEditable(false);
             numberInput.setEditable(false);
             readerTypeCombo.setEnabled(false);
+            registerInput.setEditable(false);
+            subjectInput.setEditable(false);
 
             addButton.setVisible(true);
             cancelButton.setVisible(false);
@@ -196,16 +228,25 @@ public class ReaderGui {
         countryCombo.setSelectedItem(null);
         areaCodeInput.setText(null);
         numberInput.setText(null);
-        readerTypeCombo.setSelectedItem(null);
+        readerTypeCombo.setSelectedItem(ReaderType.EMPTY);
+        registerInput.setText(null);
+        subjectInput.setText(null);
         readerList.clearSelection();
     }
 
     private void updateList() {
         try {
-            List<Reader> readers = _readerDao.getAll();
+            List<Student> students = _studentDao.getAll();
+            List<Teacher> teachers = _teacherDao.getAll();
+
+            List<Reader> readers = new ArrayList<Reader>();
+            readers.addAll(students);
+            readers.addAll(teachers);
+            readers.sort(Comparator.comparing(Reader::getCode));
+
             readerList.setListData(readers.toArray());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(GlobalExceptionMessage.COULD_NOT_LOAD_READERS);
         }
     }
 
@@ -244,8 +285,6 @@ public class ReaderGui {
 
     private void create() {
         try {
-            Reader newReader;
-
             Country country = (Country) countryCombo.getSelectedItem();
             ReaderType readerType = (ReaderType) readerTypeCombo.getSelectedItem();
 
@@ -265,33 +304,34 @@ public class ReaderGui {
 
             switch (readerType) {
                 case STUDENT:
-                    newReader  = new Student(
-                            _readerDao.getNextCode(),
+                    Student newStudent  = new Student(
+                            _studentDao.getNextCode(),
                             nameInput.getText(),
                             newAddress,
                             newTelephone,
                             readerType,
                             registerInput.getText()
                     );
+
+                    _studentDao.save(newStudent);
                     break;
 
                 case TEACHER:
-                    newReader = new Teacher(
-                            _readerDao.getNextCode(),
+                    Teacher newTeacher = new Teacher(
+                            _teacherDao.getNextCode(),
                             nameInput.getText(),
                             newAddress,
                             newTelephone,
                             readerType,
                             subjectInput.getText()
                     );
+
+                    _teacherDao.save(newTeacher);
                     break;
 
                 default:
-                    newReader = new Student();
                     break;
             }
-
-            _readerDao.save(newReader);
 
             clearFields();
             setEditMode(false);
