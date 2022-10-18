@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public class Copy {
     private Long code;
     private LocalDate acquisitionDate;
+    private Long bookCode;
     private Boolean isFixed;
     private Boolean loaned;
 
@@ -36,10 +37,18 @@ public class Copy {
         this.loaned = loaned;
     }
 
+    public Long getBookCode() {
+        return bookCode;
+    }
+
+    public void setBookCode(Long bookCode) {
+        this.bookCode = bookCode;
+    }
+
     @Override
     public String toString() {
         SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
-        return "Código: " + this.code + " - " + (this.loaned ? "Emprestado" : "Disponível");
+        return "Código: " + this.code + " - " + (this.isFixed ? "Fixo" : "Levar") + " - " + (this.loaned ? "Emprestado" : "Disponível");
     }
 
     @Override
@@ -50,4 +59,6 @@ public class Copy {
         }
         return this.code.equals(copy.code);
     }
+
+
 }

@@ -26,6 +26,10 @@ public class BookDao extends Persistence implements Dao<Book> {
                 throw new IllegalArgumentException(GlobalExceptionMessage.COULD_NOT_SAVE_BOOK);
             }
 
+            book.getCopies().forEach(copy -> {
+                copy.setBookCode(book.getCode());
+            });
+
             List<Book> books = getAll();
             books.add(book);
             writeInFile(books);

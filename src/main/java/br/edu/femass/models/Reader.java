@@ -4,6 +4,7 @@ import br.edu.femass.utils.Address;
 import br.edu.femass.utils.ReaderType;
 import br.edu.femass.utils.Telephone;
 
+import java.util.Objects;
 
 
 public abstract class Reader {
@@ -60,4 +61,16 @@ public abstract class Reader {
     public String toString() {
         return this.name + " - " + readerType.getName();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        Reader reader = (Reader) o;
+        if(reader == null) {
+            return false;
+        }
+
+        return this.code.equals(reader.code);
+    }
+
+
 }

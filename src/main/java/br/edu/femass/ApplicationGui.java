@@ -1,5 +1,6 @@
 package br.edu.femass;
 
+import br.edu.femass.gui.LoanGui;
 import br.edu.femass.gui.ReaderGui;
 import br.edu.femass.utils.GlobalConstants;
 import br.edu.femass.gui.AuthorGui;
@@ -159,6 +160,9 @@ public class ApplicationGui extends JFrame {
                 readerButton.setForeground(GlobalConstants.GRAY);
                 employeeButton.setBackground(GlobalConstants.LIGHT_GRAY);
                 employeeButton.setForeground(GlobalConstants.GRAY);
+
+                LoanGui loanView = new LoanGui();
+                configureMainContent(loanView.getLoanPanel());
                 break;
 
             case EMPLOYEES:

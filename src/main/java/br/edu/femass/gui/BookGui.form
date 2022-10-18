@@ -281,7 +281,7 @@
                 <properties>
                   <font name="Arial" size="13" style="0"/>
                   <foreground color="-6710887"/>
-                  <text value="Cópias"/>
+                  <text value="Exemplares"/>
                 </properties>
               </component>
               <hspacer id="5c89c">

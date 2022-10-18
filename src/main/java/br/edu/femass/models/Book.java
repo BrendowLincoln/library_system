@@ -40,6 +40,11 @@ public class Book {
      @Override
     public boolean equals(Object object) {
         Book book = (Book) object;
+
+        if(book == null) {
+            return false;
+        }
+
         return this.code.equals(book.code);
     }
 }
