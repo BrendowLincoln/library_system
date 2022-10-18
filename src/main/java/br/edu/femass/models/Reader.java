@@ -3,12 +3,9 @@ package br.edu.femass.models;
 import br.edu.femass.utils.Address;
 import br.edu.femass.utils.ReaderType;
 import br.edu.femass.utils.Telephone;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
-@JsonTypeName("reader")
+
 public abstract class Reader {
     private Long code;
     private String name;
@@ -17,7 +14,7 @@ public abstract class Reader {
     private ReaderType readerType;
     private Integer maximumReturnPeriod;
 
-    public Reader() { }
+    public Reader()  { }
 
     public Reader(
             Long code,
@@ -61,6 +58,6 @@ public abstract class Reader {
 
     @Override
     public String toString() {
-        return this.name;
+        return this.name + " - " + readerType.getName();
     }
 }
