@@ -64,6 +64,10 @@ public class Loan {
 
     @Override
     public String toString() {
-        return "Empréstimo " + this.code + ": " + this.getReader().getName() + " - " + (this.returnDate == null ? "Emprestado" : (!isOverdue() ? "Devolvido" : "Atrasado"));
+        return "Empréstimo "
+                + this.code + ": "
+                + this.getReader().getName() + " - "
+                + (((this.expectedReturnDate.isAfter(LocalDate.now()) || this.expectedReturnDate.isEqual(LocalDate.now()))  &&
+                this.returnDate == null) ? "Emprestado" : (isOverdue() ? "Atrasado" : "Devolvido" ));
     }
 }
