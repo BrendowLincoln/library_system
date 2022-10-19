@@ -1,0 +1,132 @@
+[ {
+  "code" : 17,
+  "title" : "Estrutura de Dados em C++",
+  "author" : {
+    "code" : 6,
+    "name" : "Adam",
+    "secondName" : "Drozdek",
+    "nationality" : "AMERICANO"
+  },
+  "copies" : [ {
+    "code" : 30,
+    "acquisitionDate" : [ 2019, 4, 12 ],
+    "bookCode" : 17,
+    "bookTitle" : "Estrutura de Dados em C++",
+    "isFixed" : true,
+    "loaned" : false
+  }, {
+    "code" : 31,
+    "acquisitionDate" : [ 2022, 5, 10 ],
+    "bookCode" : 17,
+    "bookTitle" : "Estrutura de Dados em C++",
+    "isFixed" : false,
+    "loaned" : false
+  }, {
+    "code" : 32,
+    "acquisitionDate" : [ 2010, 4, 12 ],
+    "bookCode" : 17,
+    "bookTitle" : "Estrutura de Dados em C++",
+    "isFixed" : false,
+    "loaned" : true
+  }, {
+    "code" : 33,
+    "acquisitionDate" : [ 2020, 4, 12 ],
+    "bookCode" : 17,
+    "bookTitle" : "Estrutura de Dados em C++",
+    "isFixed" : false,
+    "loaned" : true
+  }, {
+    "code" : 34,
+    "acquisitionDate" : [ 2021, 4, 20 ],
+    "bookCode" : 17,
+    "bookTitle" : "Estrutura de Dados em C++",
+    "isFixed" : true,
+    "loaned" : false
+  } ]
+}, {
+  "code" : 18,
+  "title" : "Orientação a Obejtos em Java",
+  "author" : {
+    "code" : 2,
+    "name" : "Robert",
+    "secondName" : " Cecil Martin",
+    "nationality" : "AMERICANO"
+  },
+  "copies" : [ {
+    "code" : 35,
+    "acquisitionDate" : [ 2021, 2, 12 ],
+    "bookCode" : 18,
+    "bookTitle" : "Orientação a Obejtos em Java",
+    "isFixed" : true,
+    "loaned" : false
+  }, {
+    "code" : 36,
+    "acquisitionDate" : [ 2020, 4, 12 ],
+    "bookCode" : 18,
+    "bookTitle" : "Orientação a Obejtos em Java",
+    "isFixed" : false,
+    "loaned" : true
+  } ]
+}, {
+  "code" : 19,
+  "title" : "Código Limpo",
+  "author" : {
+    "code" : 2,
+    "name" : "Robert",
+    "secondName" : " Cecil Martin",
+    "nationality" : "AMERICANO"
+  },
+  "copies" : [ {
+    "code" : 37,
+    "acquisitionDate" : [ 2020, 4, 12 ],
+    "bookCode" : 19,
+    "bookTitle" : "Código Limpo",
+    "isFixed" : true,
+    "loaned" : false
+  }, {
+    "code" : 38,
+    "acquisitionDate" : [ 2022, 5, 12 ],
+    "bookCode" : 19,
+    "bookTitle" : "Código Limpo",
+    "isFixed" : false,
+    "loaned" : false
+  }, {
+    "code" : 39,
+    "acquisitionDate" : [ 2022, 2, 20 ],
+    "bookCode" : 19,
+    "bookTitle" : "Código Limpo",
+    "isFixed" : false,
+    "loaned" : true
+  }, {
+    "code" : 40,
+    "acquisitionDate" : [ 2010, 5, 10 ],
+    "bookCode" : 19,
+    "bookTitle" : "Código Limpo",
+    "isFixed" : false,
+    "loaned" : true
+  }, {
+    "code" : 41,
+    "acquisitionDate" : [ 2010, 2, 28 ],
+    "bookCode" : 19,
+    "bookTitle" : "Código Limpo",
+    "isFixed" : true,
+    "loaned" : false
+  } ]
+}, {
+  "code" : 20,
+  "title" : "Arquitetura Limpa",
+  "author" : {
+    "code" : 2,
+    "name" : "Robert",
+    "secondName" : " Cecil Martin",
+    "nationality" : "AMERICANO"
+  },
+  "copies" : [ {
+    "code" : 42,
+    "acquisitionDate" : [ 2022, 9, 12 ],
+    "bookCode" : 20,
+    "bookTitle" : "Arquitetura Limpa",
+    "isFixed" : true,
+    "loaned" : false
+  } ]
+} ]

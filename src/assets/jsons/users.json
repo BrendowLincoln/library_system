@@ -1,0 +1,17 @@
+[
+  {
+    "username": "admin",
+    "password": "admin",
+    "type": "ADMINISTRATOR"
+  },
+  {
+    "username": "bibliotecario",
+    "password": "1234",
+    "type": "LIBRARIAN"
+  },
+  {
+    "username": "atendente",
+    "password": "4321",
+    "type": "ATTENDANT"
+  }
+]

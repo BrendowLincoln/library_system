@@ -15,9 +15,11 @@ public class GlobalExceptionMessage {
     public static final String COULD_NOT_LOAD_COPIES_LIST = "Não foi possível preecher a lista de cópias do livro.";
     public static final String COULD_NOT_LOAD_AUTHORS_LIST = "Não foi possível preecher a lista de autores.";
 
-    //
+    //LoanGui
     public static final String COULD_NOT_SAVE_LOAN = "Não foi possível salvar o empréstimo.";
 
+    //LoginGui
+    public static final String INVALID_LOGIN = "Login inválido.";
 
     //SelectCopiesGui
     public static final String COULD_NOT_LOAD_BOOKS_LIST = "Não foi possível preecher a lista de livros.";

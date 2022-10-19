@@ -1,0 +1,16 @@
+[ {
+  "code" : 0,
+  "name" : "Fulano0",
+  "secondName" : " de Souza",
+  "nationality" : "JAMAICANO"
+}, {
+  "code" : 1,
+  "name" : "Siclano",
+  "secondName" : " Silva",
+  "nationality" : "BRASILEIRO"
+}, {
+  "code" : 2,
+  "name" : "Fulano2",
+  "secondName" : " de Souza",
+  "nationality" : "JAMAICANO"
+} ]

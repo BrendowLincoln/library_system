@@ -286,7 +286,6 @@ public class LoanGui {
         JDialog frame = new JDialog(new Frame(), true);
         SelectCopiesGui selectCopiesGui = new SelectCopiesGui(_currentCopies);
         frame.setContentPane(selectCopiesGui.getSelectCopiesPanel());
-        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(screenWidth, screenHeight);
         frame.setTitle("Selecionar exemplares");

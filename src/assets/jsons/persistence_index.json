@@ -1,0 +1,16 @@
+[ {
+  "entity" : "copy",
+  "currentIndex" : 42
+}, {
+  "entity" : "author",
+  "currentIndex" : 7
+}, {
+  "entity" : "book",
+  "currentIndex" : 20
+}, {
+  "entity" : "reader",
+  "currentIndex" : 10
+}, {
+  "entity" : "loans",
+  "currentIndex" : 10
+} ]

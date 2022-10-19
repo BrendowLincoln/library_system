@@ -1,11 +1,10 @@
 package br.edu.femass;
 
-import br.edu.femass.gui.LoanGui;
-import br.edu.femass.gui.ReaderGui;
+import br.edu.femass.gui.*;
+import br.edu.femass.models.User;
 import br.edu.femass.utils.GlobalConstants;
-import br.edu.femass.gui.AuthorGui;
 import br.edu.femass.utils.Menus;
-import br.edu.femass.gui.BookGui;
+import br.edu.femass.utils.UserType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +25,10 @@ public class ApplicationGui extends JFrame {
     private JButton bookButton;
     private JPanel buttonMenuContainer;
 
-    public ApplicationGui()  {
+    private User _currentUser;
+
+    public ApplicationGui(User user)  {
+        _currentUser = user;
         initialize();
 
 
@@ -58,12 +60,6 @@ public class ApplicationGui extends JFrame {
             }
         });
 
-        employeeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menuStateController(Menus.EMPLOYEES);
-            }
-        });
     }
 
     public JPanel getApplicationPanel() {
@@ -73,6 +69,33 @@ public class ApplicationGui extends JFrame {
     //Private Methods
     private void initialize() {
         setLogoImage();
+
+        switch (_currentUser.getType()) {
+            case LIBRARIAN:
+                bookButton.setVisible(true);
+                authorButton.setVisible(true);
+                readerButton.setVisible(false);
+                loanButton.setVisible(false);
+                employeeButton.setVisible(false);
+                break;
+
+            case ATTENDANT:
+                bookButton.setVisible(false);
+                authorButton.setVisible(false);
+                readerButton.setVisible(true);
+                loanButton.setVisible(true);
+                employeeButton.setVisible(false);
+                break;
+
+            default:
+                bookButton.setVisible(true);
+                authorButton.setVisible(true);
+                readerButton.setVisible(true);
+                loanButton.setVisible(true);
+                employeeButton.setVisible(true);
+                break;
+
+        }
     }
 
 
@@ -179,6 +202,9 @@ public class ApplicationGui extends JFrame {
                 readerButton.setForeground(GlobalConstants.GRAY);
                 loanButton.setBackground(GlobalConstants.LIGHT_GRAY);
                 loanButton.setForeground(GlobalConstants.GRAY);
+
+                EmployeeGui employeeView = new EmployeeGui();
+                configureMainContent(employeeView.getEmployeePanel());
                 break;
         }
    }
