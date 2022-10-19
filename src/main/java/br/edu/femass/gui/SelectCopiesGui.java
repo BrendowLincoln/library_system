@@ -58,8 +58,6 @@ public class SelectCopiesGui {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _isNew = true;
-                _currentLoanCopies = new ArrayList<Copy>();
                 setEditMode(true);
                 updateBooksCombo();
             }
@@ -76,8 +74,6 @@ public class SelectCopiesGui {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
                 save();
                 clearFields();
                 setEditMode(false);
@@ -88,7 +84,9 @@ public class SelectCopiesGui {
         booksCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateAvailableCopiesCombo();
+                if(booksCombo.getSelectedItem() != null) {
+                    updateAvailableCopiesCombo();
+                }
             }
         });
     }

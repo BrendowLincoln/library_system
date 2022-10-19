@@ -7,7 +7,7 @@ import br.edu.femass.utils.Telephone;
 import java.util.Objects;
 
 
-public abstract class Reader {
+public class Reader {
     private Long code;
     private String name;
     private Address address;

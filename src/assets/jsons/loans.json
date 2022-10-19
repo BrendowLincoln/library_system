@@ -1,0 +1,140 @@
+[ {
+  "code" : 7,
+  "copies" : [ {
+    "code" : 33,
+    "acquisitionDate" : [ 2020, 4, 12 ],
+    "bookCode" : 17,
+    "bookTitle" : "Estrutura de Dados em C++",
+    "isFixed" : false,
+    "loaned" : false
+  } ],
+  "reader" : {
+    "code" : 4,
+    "name" : "Alan Galante",
+    "address" : {
+      "street" : "Av. Sei la ",
+      "number" : 23,
+      "neighborhood" : "Glória",
+      "city" : "Macaé",
+      "state" : "Rio de Janeiro",
+      "country" : "BRA"
+    },
+    "telephone" : {
+      "areaCode" : 22,
+      "number" : 48492942
+    },
+    "readerType" : "TEACHER",
+    "maximumReturnPeriod" : 30
+  },
+  "loanDate" : [ 2022, 10, 19 ],
+  "expectedReturnDate" : [ 2022, 11, 18 ],
+  "returnDate" : [ 2022, 10, 19 ]
+}, {
+  "code" : 8,
+  "copies" : [ {
+    "code" : 39,
+    "acquisitionDate" : [ 2022, 2, 20 ],
+    "bookCode" : 19,
+    "bookTitle" : "Código Limpo",
+    "isFixed" : false,
+    "loaned" : false
+  }, {
+    "code" : 33,
+    "acquisitionDate" : [ 2020, 4, 12 ],
+    "bookCode" : 17,
+    "bookTitle" : "Estrutura de Dados em C++",
+    "isFixed" : false,
+    "loaned" : false
+  } ],
+  "reader" : {
+    "code" : 5,
+    "name" : "Patrick Bindeli",
+    "address" : {
+      "street" : "Av. Centro",
+      "number" : 21,
+      "neighborhood" : "Centro",
+      "city" : "Macaé",
+      "state" : "Rio de Janeiro",
+      "country" : "BRA"
+    },
+    "telephone" : {
+      "areaCode" : 22,
+      "number" : 4345252345234
+    },
+    "readerType" : "STUDENT",
+    "maximumReturnPeriod" : 15
+  },
+  "loanDate" : [ 2022, 3, 10 ],
+  "expectedReturnDate" : [ 2022, 3, 25 ],
+  "returnDate" : [ 2022, 10, 19 ]
+}, {
+  "code" : 9,
+  "copies" : [ {
+    "code" : 40,
+    "acquisitionDate" : [ 2010, 5, 10 ],
+    "bookCode" : 19,
+    "bookTitle" : "Código Limpo",
+    "isFixed" : false,
+    "loaned" : true
+  }, {
+    "code" : 33,
+    "acquisitionDate" : [ 2020, 4, 12 ],
+    "bookCode" : 17,
+    "bookTitle" : "Estrutura de Dados em C++",
+    "isFixed" : false,
+    "loaned" : true
+  } ],
+  "reader" : {
+    "code" : 2,
+    "name" : "Sérgio Hermenegildo",
+    "address" : {
+      "street" : "Av. Sei la",
+      "number" : 23,
+      "neighborhood" : "ffasdf",
+      "city" : "fasdfa",
+      "state" : "fafasd",
+      "country" : "MNG"
+    },
+    "telephone" : {
+      "areaCode" : 22,
+      "number" : 239425224
+    },
+    "readerType" : "TEACHER",
+    "maximumReturnPeriod" : 30
+  },
+  "loanDate" : [ 2022, 4, 10 ],
+  "expectedReturnDate" : [ 2022, 5, 10 ],
+  "returnDate" : null
+}, {
+  "code" : 10,
+  "copies" : [ {
+    "code" : 39,
+    "acquisitionDate" : [ 2022, 2, 20 ],
+    "bookCode" : 19,
+    "bookTitle" : "Código Limpo",
+    "isFixed" : false,
+    "loaned" : true
+  } ],
+  "reader" : {
+    "code" : 1,
+    "name" : "Brendow Lincoln",
+    "address" : {
+      "street" : "Av. Dr Sérgio Vieira de Mello",
+      "number" : 23,
+      "neighborhood" : "Lagomar",
+      "city" : "Macaé",
+      "state" : "Rio de Janeiro",
+      "country" : "BRA"
+    },
+    "telephone" : {
+      "areaCode" : 22,
+      "number" : 997457554
+    },
+    "readerType" : "STUDENT",
+    "maximumReturnPeriod" : 15,
+    "register" : "239024923"
+  },
+  "loanDate" : [ 2022, 9, 9 ],
+  "expectedReturnDate" : [ 2022, 9, 24 ],
+  "returnDate" : null
+} ]

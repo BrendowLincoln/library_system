@@ -28,6 +28,7 @@ public class BookDao extends Persistence implements Dao<Book> {
 
             book.getCopies().forEach(copy -> {
                 copy.setBookCode(book.getCode());
+                copy.setBookTitle(book.getTitle());
             });
 
             List<Book> books = getAll();
@@ -73,6 +74,11 @@ public class BookDao extends Persistence implements Dao<Book> {
 
     @Override
     public void update(Book book) throws Exception {
+        book.getCopies().forEach(copy -> {
+            copy.setBookCode(book.getCode());
+            copy.setBookTitle(book.getTitle());
+        });
+
         List<Book> books = getAll();
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).getCode() == book.getCode()) {

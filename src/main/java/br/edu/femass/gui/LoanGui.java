@@ -5,12 +5,11 @@ import br.edu.femass.models.*;
 import br.edu.femass.utils.exceptions.GlobalExceptionMessage;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -36,6 +35,7 @@ public class LoanGui {
     private JFormattedTextField returnDateInput;
     private JComboBox readerCombo;
     private JComboBox copiesCombo;
+    private JButton overdueButton;
 
     private StudentDao _studentDao;
     private TeacherDao _teacherDao;
@@ -65,6 +65,8 @@ public class LoanGui {
                 _currentCopies = new ArrayList<Copy>();
                 setEditMode(true);
                 updateReaders();
+
+                setEditMode(true);
             }
         });
 
@@ -85,10 +87,48 @@ public class LoanGui {
                 setEditMode(false);
             }
         });
+
         devolutionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Loan selectedLoan = (Loan) loanList.getSelectedValue();
+                _loanDao.doReturn(selectedLoan.getCode());
 
+                clearFields();
+                setEditMode(false);
+                updateList();
+            }
+        });
+
+        loanList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                _isNew = false;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                updateReaders();
+
+                Loan selectedLoan = (Loan) loanList.getSelectedValue();
+                if(selectedLoan == null) return;
+
+                codeInput.setText(selectedLoan.getCode().toString());
+                loanDateInput.setText(selectedLoan.getLoanDate().format(formatter));
+                readerCombo.setSelectedItem(selectedLoan.getReader());
+                expectedReturnDateInput.setText(selectedLoan.getExpectedReturnDate().format(formatter));
+                updateCopiesCombo(selectedLoan.getCopies());
+
+                if(selectedLoan.getReturnDate() != null) {
+                    returnDateInput.setText(selectedLoan.getReturnDate().format(formatter));
+                }
+
+
+                setEditMode(true);
+            }
+        });
+
+        overdueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openOverdueLoansDialog();
             }
         });
     }
@@ -121,15 +161,16 @@ public class LoanGui {
 
     private void setEditMode(boolean editing) {
         codeInput.setEditable(false);
+        expectedReturnDateInput.setEditable(false);
+        returnDateInput.setEditable(false);
 
         if(editing) {
             copiesCombo.setEnabled(true);
             readerCombo.setEnabled(true);
             loanDateInput.setEditable(true);
-            expectedReturnDateInput.setEditable(true);
-            returnDateInput.setEditable(true);
 
             addButton.setVisible(false);
+            overdueButton.setVisible(false);
             cancelButton.setVisible(true);
             saveButton.setVisible(true);
             addCopyButton.setVisible(true);
@@ -137,16 +178,25 @@ public class LoanGui {
 
             if(!_isNew) {
                 devolutionButton.setVisible(true);
+                saveButton.setVisible(false);
+                addCopyButton.setVisible(false);
             }
+
+            Loan selectedLoan = (Loan) loanList.getSelectedValue();
+
+            if(selectedLoan != null && selectedLoan.getReturnDate() != null) {
+                devolutionButton.setVisible(false);
+            }
+
+
         }
         else {
             copiesCombo.setEnabled(false);
             readerCombo.setEnabled(false);
             loanDateInput.setEditable(false);
-            expectedReturnDateInput.setEditable(false);
-            returnDateInput.setEditable(false);
 
             addButton.setVisible(true);
+            overdueButton.setVisible(true);
             cancelButton.setVisible(false);
             saveButton.setVisible(false);
             devolutionButton.setVisible(false);
@@ -155,7 +205,7 @@ public class LoanGui {
     }
 
     private void save() {
-        if(!isAcquisitionDateValid(loanDateInput.getText()) || !isAcquisitionDateValid(expectedReturnDateInput.getText())) {
+        if(!isDateValid(loanDateInput.getText())) {
             JOptionPane.showMessageDialog(null, GlobalExceptionMessage.INVALID_DATE);
             return;
         }
@@ -169,6 +219,7 @@ public class LoanGui {
         readerCombo.removeAllItems();
         loanDateInput.setText(null);
         expectedReturnDateInput.setText(null);
+        returnDateInput.setText(null);
         loanList.clearSelection();
     }
 
@@ -204,14 +255,13 @@ public class LoanGui {
         try {
             Reader readerSelected = (Reader) readerCombo.getSelectedItem();
 
-            Loan newBook = new Loan(
+            Loan newLoan = new Loan(
                     _loanDao.getNextCode(),
                     _currentCopies,
                     readerSelected,
-                    convertStringDateToLocalDate(loanDateInput.getText()),
-                    convertStringDateToLocalDate(expectedReturnDateInput.getText())
+                    convertStringDateToLocalDate(loanDateInput.getText())
             );
-            _loanDao.save(newBook);
+            _loanDao.save(newLoan);
 
             clearFields();
             setEditMode(false);
@@ -257,10 +307,33 @@ public class LoanGui {
             }
 
         });
-
     }
 
-    private boolean isAcquisitionDateValid(String date) {
+
+    private void openOverdueLoansDialog() {
+
+        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        final Integer screenWidth = (int) (screenSize.getWidth() * 0.3);
+        final Integer screenHeight = (int) (screenSize.getHeight() * 0.6);
+
+        JDialog frame = new JDialog(new Frame(), true);
+        OverdueLoansGui selectCopiesGui = new OverdueLoansGui();
+        frame.setContentPane(selectCopiesGui.getOverdueLoansPanel());
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(screenWidth, screenHeight);
+        frame.setTitle("Empréstimpos em atraso");
+        frame.setLocation(
+                screenSize.width/2- frame.getSize().width/2,
+                screenSize.height/2-frame.getSize().height/2
+
+        );
+
+        frame.setVisible(true);
+        frame.pack();
+    }
+
+    private boolean isDateValid(String date) {
         try {
             LocalDate parsedDate = convertStringDateToLocalDate(date);
             return parsedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString().equals(date) && (parsedDate.isBefore(LocalDate.now()) || parsedDate.equals(LocalDate.now()) );

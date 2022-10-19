@@ -1,5 +1,7 @@
 package br.edu.femass.models;
 
+import br.edu.femass.daos.BookDao;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
@@ -7,6 +9,7 @@ public class Copy {
     private Long code;
     private LocalDate acquisitionDate;
     private Long bookCode;
+    private String bookTitle;
     private Boolean isFixed;
     private Boolean loaned;
 
@@ -43,6 +46,14 @@ public class Copy {
 
     public void setBookCode(Long bookCode) {
         this.bookCode = bookCode;
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package br.edu.femass.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,14 +19,13 @@ public class Loan {
             Long code,
             List<Copy> copies,
             Reader reader,
-            LocalDate loanDate,
-            LocalDate expectedReturnDate
+            LocalDate loanDate
     ) {
         this.code = code;
         this.copies = copies;
         this.reader = reader;
         this.loanDate = loanDate;
-        this.expectedReturnDate = expectedReturnDate;
+        this.expectedReturnDate = loanDate.plusDays(this.reader.getMaximumReturnPeriod());
     }
 
 
@@ -50,5 +51,19 @@ public class Loan {
 
     public LocalDate getReturnDate() {
         return returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    @JsonIgnore
+    public boolean isOverdue() {
+        return this.expectedReturnDate.isBefore(LocalDate.now()) && this.returnDate == null;
+    }
+
+    @Override
+    public String toString() {
+        return "Empréstimo " + this.code + ": " + this.getReader().getName() + " - " + (this.returnDate == null ? "Emprestado" : (!isOverdue() ? "Devolvido" : "Atrasado"));
     }
 }
